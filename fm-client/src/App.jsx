@@ -25,6 +25,7 @@ function App() {
     <div classNameName="App">
     
     <h1>hello fleet management</h1>
+    <p>a mern stack web application</p>
       <h1>{data}</h1>
     </div>
   );
