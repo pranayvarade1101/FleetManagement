@@ -1,33 +1,15 @@
-
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './Home';
 import './App.css';
 
-import bootstrap from 'bootstrap/dist/css/bootstrap.css';
-
-
-//for testing
-import {useState, useEffect} from 'react';
-//functions
-import {getTest} from "./functions/test"
-
 function App() {
-
-  //testing
-  const [data, setData]=useState("Hello world!");
-  useEffect(()=>{
-    getTest()
-      .then((res)=>{
-        setData(res.message);
-      })
-      .catch((err)=>console.log(err));
-  }, []);
-
   return (
-    <div classNameName="App">
-    
-    <h1>hello fleet management</h1>
-    <p>a mern stack web application</p>
-      <h1>{data}</h1>
-    </div>
+    <Router>
+      <Routes>
+        <Route path='/' element={<Home/>} />
+      </Routes>
+    </Router>
   );
 }
 
