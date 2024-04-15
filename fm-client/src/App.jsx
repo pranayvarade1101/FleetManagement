@@ -1,4 +1,6 @@
-
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import AboutUs from './AboutUs';
 import './App.css';
 
 import bootstrap from 'bootstrap/dist/css/bootstrap.css';
@@ -22,12 +24,11 @@ function App() {
   }, []);
 
   return (
-    <div classNameName="App">
-   
-    <h1>hello fleet management <br/>
-    a mern stack web application</h1>
-      <h1>{data}</h1>
-    </div>
+    <Router>
+      <Routes>
+        <Route path='/about-us' element={<AboutUs/>} />
+      </Routes>
+    </Router>
   );
 }
 
