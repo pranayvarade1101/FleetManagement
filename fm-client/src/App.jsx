@@ -1,7 +1,7 @@
 
 import './App.css';
 
-import bootstrap from 'bootstrap/dist/css/bootstrap.css';
+//import bootstrap from 'bootstrap/dist/css/bootstrap.css';
 
 
 //for testing
@@ -25,7 +25,7 @@ function App() {
     <div classNameName="App">
    
     <h1>hello fleet management <br/>
-    a mern stack web application</h1>
+    Fleet Management System by Uday T</h1>
       <h1>{data}</h1>
     </div>
   );
