@@ -1,10 +1,9 @@
-
 import { useEffect, useState } from 'react';
+import React from 'react';
 import './App.css';
 import Background from './myComponents/shared/Background/Background.jsx';
 import Navbar from './myComponents/shared/navbar/Navbar.jsx';
 import Hero from './myComponents/shared/Hero/Hero.jsx'
-
 // import bootstrap from 'bootstrap/dist/css/bootstrap.css';
 
 function App() {
@@ -26,8 +25,8 @@ function App() {
 // playStatus is the status of background video. if true, video will play.
 
 
-useEffect(()=>{
-  setInterval(()=>{
+useEffect(()=>{// creating slideshow
+  setInterval(()=>{// putting images in loop and setting delay
     setHeroCount((count)=>{return count===4 ? 0 : count+1})
   },3000);
 },[]);
@@ -48,6 +47,7 @@ useEffect(()=>{
       playStatus={playStatus}
     />
     </div>
+
   );
 }
 
