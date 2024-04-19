@@ -1,32 +1,52 @@
 
+import { useEffect, useState } from 'react';
 import './App.css';
+import Background from './myComponents/shared/Background/Background.jsx';
+import Navbar from './myComponents/shared/navbar/Navbar.jsx';
+import Hero from './myComponents/shared/Hero/Hero.jsx'
 
-import bootstrap from 'bootstrap/dist/css/bootstrap.css';
-
-
-//for testing
-import {useState, useEffect} from 'react';
-//functions
-import {getTest} from "./functions/test"
+// import bootstrap from 'bootstrap/dist/css/bootstrap.css';
 
 function App() {
 
-  //testing
-  const [data, setData]=useState("Hello world!");
-  useEffect(()=>{
-    getTest()
-      .then((res)=>{
-        setData(res.message);
-      })
-      .catch((err)=>console.log(err));
-  }, []);
+  let heroData=[
+    {text1:"Premium Busses",text2:"at your service"}, // for bus1 image
+    {text1:"Dive into",text2:"a luxurious journey"}, // for bus2 image and so on
+    {text1:"Our motto,",text2:"your satisfaction"},
+    {text1:"We provide",text2:"Best in class Busses"},
+    {text1:"Enjoy your",text2:"journey with us!"},
+  ];
+
+  //A hero is a container for your site’s most important content. 
+  //It’s the largest and most visible container on the page and it should be used to showcase your brand or product.
+  const [heroCount, setHeroCount]= useState(4); 
+  // here heroCount is the count of the images of bus
+
+  const [playStatus,setPlayStatus]=useState(false);
+// playStatus is the status of background video. if true, video will play.
+
+
+useEffect(()=>{
+  setInterval(()=>{
+    setHeroCount((count)=>{return count===4 ? 0 : count+1})
+  },3000);
+},[]);
 
   return (
     <div classNameName="App">
     
-    <h1>hello fleet management</h1>
-    <p>a mern stack web application</p>
-      <h1>{data}</h1>
+    <Background // passing the props
+      playStatus={playStatus} 
+      heroCount={heroCount}
+    /> 
+    <Navbar/>
+    <Hero // passing the props
+      setPlayStatus={setPlayStatus}
+      heroData={heroData[heroCount]}
+      heroCount={heroCount}
+      setHeroCount={setHeroCount}
+      playStatus={playStatus}
+    />
     </div>
   );
 }
