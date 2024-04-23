@@ -47,7 +47,6 @@ useEffect(()=>{// creating slideshow
       playStatus={playStatus}
     />
     </div>
-
   );
 }
 
