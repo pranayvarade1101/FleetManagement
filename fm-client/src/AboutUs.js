@@ -1,11 +1,16 @@
 import React from 'react';
 import "./AboutUs.css"
+
 import Logo from "./logo.svg"
+
 
 const AboutUs = () => {
   return (
     <div className="about-us-container">
+
+
       <img src={Logo} alt="Logo"/>
+
       <h1>About Us</h1>
       <p>
         Your Bus Booking is a fleet management web app that provides a
