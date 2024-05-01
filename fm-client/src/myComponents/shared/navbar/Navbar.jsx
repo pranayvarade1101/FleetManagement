@@ -7,13 +7,32 @@ const Navbar = () => {
       <div className="nav-logo">
         FleetManagement 
       </div>
-      <ul className="nav-menu">
-            <li>Home</li>
-            <li>Explore</li>
-            <li>About</li>
-            <li >Contact</li>
-            <li className='nav-login'>Login/SignUp</li>
+      {userAccountType === 'admin' && (
+        <ul className="nav-menu">
+          <li> <a href="/home"> Home </a> </li>
+          <li><a href="/admin"> Admin </a> </li>
+          <li> <a href="/about-us"> About Us </a> </li>
+          <li className='nav-login'> <a href="/login"> Login/SignUp </a> </li>
         </ul>
+      )}
+      {userAccountType === 'customer' && (
+        <ul className="nav-menu">
+          <li> <a href="/home"> Home </a> </li>
+          <li><a href="/home"> Explore </a> </li>
+          <li> <a href="/about-us"> About </a> </li>
+          <li> <a href="/home"> Contact </a> </li>
+          <li className='nav-login'> <a href="/login"> Login/SignUp </a> </li>
+        </ul>
+      )}
+      {userAccountType === 'driver' && (
+        <ul className="nav-menu">
+          <li> <a href="/home"> Home </a> </li>
+          <li><a href="/home"> Explore </a> </li>
+          <li> <a href="/about-us"> About </a> </li>
+          <li> <a href="/home"> Contact </a> </li>
+          <li className='nav-login'> <a href="/login"> Login/SignUp </a> </li>
+        </ul>
+      )}
     </div>
   )
 }
