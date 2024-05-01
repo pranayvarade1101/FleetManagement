@@ -1,0 +1,14 @@
+.container {
+    background-color: #e4e4e4;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.container h1 {
+    padding-bottom: 3%;
+}
