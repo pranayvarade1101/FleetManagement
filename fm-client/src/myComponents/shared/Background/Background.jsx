@@ -15,7 +15,7 @@ const Background = ({/*destructuring props*/ heroCount,playStatus}) => {
         //     <source src={videoBus} type='video/mp4'/>
         // </video>
         <div className="video">
-            <h2>playing video</h2>
+            <h2>Playing Video</h2>
         </div>
     )
   }else if(heroCount===0){

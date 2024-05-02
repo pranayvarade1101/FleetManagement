@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import React from 'react';
 
-import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AboutUs from './AboutUs';
 
@@ -38,28 +37,27 @@ useEffect(()=>{// creating slideshow
 },[]);
 
   return (
-
-    <div classNameName="App">
-    
-    <Background // passing the props
-      playStatus={playStatus} 
-      heroCount={heroCount}
-    /> 
-    <Navbar/>
-    <Hero // passing the props
-      setPlayStatus={setPlayStatus}
-      heroData={heroData[heroCount]}
-      heroCount={heroCount}
-      setHeroCount={setHeroCount}
-      playStatus={playStatus}
-    />
-    </div>
     <Router>
       <Routes>
         <Route path='/about-us' element={<AboutUs/>} />
       </Routes>
-    </Router>
 
+    <div classNameName="App">
+      <Background // passing the props
+        playStatus={playStatus} 
+        heroCount={heroCount}
+      /> 
+      <Navbar/>
+      <Hero // passing the props
+        setPlayStatus={setPlayStatus}
+        heroData={heroData[heroCount]}
+        heroCount={heroCount}
+        setHeroCount={setHeroCount}
+        playStatus={playStatus}
+      />
+    </div>
+
+    </Router>
   );
 }
 

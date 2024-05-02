@@ -20,6 +20,12 @@
     gap:80px;
 }
 
+.nav-menu li a {
+    color: white;
+    text-decoration: none;
+    text-shadow: 2px 2px 5px #131313;
+}
+
 .nav-login{
     border-radius: 50px;
     padding:10px 38px;
