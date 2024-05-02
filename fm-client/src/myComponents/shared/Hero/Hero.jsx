@@ -27,9 +27,9 @@ const hero = ({/*destructuring props*/heroData,setHeroCount,heroCount,setPlaySta
             <li onClick={()=>setHeroCount(3)} className={heroCount===3? "hero-dot orange" : "hero-dot"}></li>
             <li onClick={()=>setHeroCount(4)} className={heroCount===4? "hero-dot orange" : "hero-dot"}></li>
         </ul>
-        <div className="hero-play">
-            <img onClick={()=>setPlayStatus(!playStatus)} src={playStatus ? pause_icon : play_icon} alt="" />
-            <p>play video</p>
+        <div className="hero-play" onClick={()=>setPlayStatus(!playStatus)}>
+            <img src={playStatus ? pause_icon : play_icon} alt="" />
+            <p>Play Video</p>
         </div>
       </div>
     </div>
