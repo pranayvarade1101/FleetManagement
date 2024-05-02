@@ -1,13 +1,21 @@
+
+// // basic imports
 import React from 'react'
 import './Hero.css'
+
+// media imports
 import arrow_gif from '../../../assets/icons/arrow_gif.gif'
 import play_icon from '../../../assets/icons/play_icon.png'
 import pause_icon from '../../../assets/icons/pause_icon.png'
 
+// bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css'
+
+
+
 const hero = ({/*destructuring props*/heroData,setHeroCount,heroCount,setPlayStatus,playStatus}) => {
 
     
-
   return (
     <div className='hero'>
       <div className="hero-text">
@@ -15,8 +23,10 @@ const hero = ({/*destructuring props*/heroData,setHeroCount,heroCount,setPlaySta
         <p>{heroData.text2}</p>
       </div>
       <div className="hero-explore">
-        <p>Explore the platform</p>
+        <button className='explore-btn justify-content-center'>Dive In
         <img className='arrowBtn' src={arrow_gif} alt="arrorBtn" />
+        </button>
+        
       </div>
       <div className="hero-dot-play">
         <ul className="hero-dots">
@@ -27,7 +37,8 @@ const hero = ({/*destructuring props*/heroData,setHeroCount,heroCount,setPlaySta
             <li onClick={()=>setHeroCount(3)} className={heroCount===3? "hero-dot orange" : "hero-dot"}></li>
             <li onClick={()=>setHeroCount(4)} className={heroCount===4? "hero-dot orange" : "hero-dot"}></li>
         </ul>
-        <div className="hero-play">
+        
+        <div className="hero-play"> {/* background video */}
             <img onClick={()=>setPlayStatus(!playStatus)} src={playStatus ? pause_icon : play_icon} alt="" />
             <p>play video</p>
         </div>

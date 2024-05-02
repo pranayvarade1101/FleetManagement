@@ -1,11 +1,23 @@
+// basic imports
 import { useEffect, useState } from 'react';
 import React from 'react';
-import './App.css';
+
+// components imports
 import Background from './myComponents/shared/Background/Background.jsx';
 import Navbar from './myComponents/shared/navbar/Navbar.jsx';
-import Hero from './myComponents/shared/Hero/Hero.jsx'
-// import bootstrap from 'bootstrap/dist/css/bootstrap.css';
+import Hero from './myComponents/shared/Hero/Hero.jsx';
+// import AboutUs from './myComponents/about/AboutUs.js';
 
+
+// bootstrap
+import 'bootstrap/dist/css/bootstrap.css';
+
+// Routing 
+// import {BrowserRouter,Routes,Route} from 'react-router-dom';
+
+
+
+// Logic Start
 function App() {
 
   let heroData=[
@@ -46,6 +58,14 @@ useEffect(()=>{// creating slideshow
       setHeroCount={setHeroCount}
       playStatus={playStatus}
     />
+
+    {/* all Routes */}
+     {/* <BrowserRouter>
+      <Routes>
+        <Route path="/about" element={<AboutUs/>}>About</Route>
+      </Routes>
+    </BrowserRouter>  */}
+
     </div>
 
   );
