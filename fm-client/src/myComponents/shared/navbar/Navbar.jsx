@@ -1,9 +1,13 @@
 import React from 'react'
 import './navStyle.css'
+import 'bootstrap/dist/css/bootstrap.css';
 
 const Navbar = () => {
+
+  const userAccountType='admin';
+
   return (
-    <div className='nav'>
+    <div className='nav px-5'>
       <div className="nav-logo">
         FleetManagement 
       </div>
