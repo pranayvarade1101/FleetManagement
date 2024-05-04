@@ -1,14 +1,16 @@
-
+// basic
 import { useEffect, useState } from 'react';
 import React from 'react';
 
+// routing 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import AboutUs from './AboutUs';
 
-import './App.css';
+//components
+import AboutUs from './myComponents/about/AboutUs.jsx';
 import Background from './myComponents/shared/Background/Background.jsx';
 import Navbar from './myComponents/shared/navbar/Navbar.jsx';
 import Hero from './myComponents/shared/Hero/Hero.jsx'
+import PageHome from './myComponents/home/PageHome/PageHome.jsx';
 // import bootstrap from 'bootstrap/dist/css/bootstrap.css';
 
 function App() {
@@ -40,6 +42,7 @@ useEffect(()=>{// creating slideshow
     <Router>
       <Routes>
         <Route path='/about-us' element={<AboutUs/>} />
+        <Route path='/PageHome' element={<PageHome/>} />
       </Routes>
 
     <div classNameName="App">
