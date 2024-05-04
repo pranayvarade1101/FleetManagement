@@ -8,9 +8,9 @@
     font-size: 70px;
     font-weight: 500;
     margin-top: 200px;
-    background-color: rgb(82, 82, 82);
+    /* background-color: rgb(82, 82, 82); */
     width: fit-content;
-    opacity: 50%;
+    
     border-radius: 2rem;
     padding: 0px 25px;
 }
@@ -66,9 +66,11 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
 }
 
 .hero-play p{
     color: white;
     font-size: 20px;
+    text-shadow: 2px 2px 5px #292929;
 }

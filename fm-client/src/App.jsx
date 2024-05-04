@@ -1,23 +1,18 @@
-// basic imports
+// basic
 import { useEffect, useState } from 'react';
 import React from 'react';
 
-// components imports
+// routing 
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+//components
+import AboutUs from './myComponents/about/AboutUs.jsx';
 import Background from './myComponents/shared/Background/Background.jsx';
 import Navbar from './myComponents/shared/navbar/Navbar.jsx';
-import Hero from './myComponents/shared/Hero/Hero.jsx';
-// import AboutUs from './myComponents/about/AboutUs.js';
+import Hero from './myComponents/shared/Hero/Hero.jsx'
+import PageHome from './myComponents/home/PageHome/PageHome.jsx';
+// import bootstrap from 'bootstrap/dist/css/bootstrap.css';
 
-
-// bootstrap
-import 'bootstrap/dist/css/bootstrap.css';
-
-// Routing 
-// import {BrowserRouter,Routes,Route} from 'react-router-dom';
-
-
-
-// Logic Start
 function App() {
 
   let heroData=[
@@ -44,30 +39,28 @@ useEffect(()=>{// creating slideshow
 },[]);
 
   return (
-    <div classNameName="App">
-    
-    <Background // passing the props
-      playStatus={playStatus} 
-      heroCount={heroCount}
-    /> 
-    <Navbar/>
-    <Hero // passing the props
-      setPlayStatus={setPlayStatus}
-      heroData={heroData[heroCount]}
-      heroCount={heroCount}
-      setHeroCount={setHeroCount}
-      playStatus={playStatus}
-    />
-
-    {/* all Routes */}
-     {/* <BrowserRouter>
+    <Router>
       <Routes>
-        <Route path="/about" element={<AboutUs/>}>About</Route>
+        <Route path='/about-us' element={<AboutUs/>} />
+        <Route path='/PageHome' element={<PageHome/>} />
       </Routes>
-    </BrowserRouter>  */}
 
+    <div classNameName="App">
+      <Background // passing the props
+        playStatus={playStatus} 
+        heroCount={heroCount}
+      /> 
+      <Navbar/>
+      <Hero // passing the props
+        setPlayStatus={setPlayStatus}
+        heroData={heroData[heroCount]}
+        heroCount={heroCount}
+        setHeroCount={setHeroCount}
+        playStatus={playStatus}
+      />
     </div>
 
+    </Router>
   );
 }
 

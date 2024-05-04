@@ -1,8 +1,9 @@
 import React from 'react'
+import './PageHome.css'
 
 const PageHome = () => {
   return (
-    <div>
+    <div className='bg'>
       <h1>This is main home page</h1>
     </div>
   )
