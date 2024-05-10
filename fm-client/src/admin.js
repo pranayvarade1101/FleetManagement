@@ -3,23 +3,21 @@ import { Link } from 'react-router-dom';
 
 import "./admin.css"
 
-function AdminButton({ to, children }) {
-  return (
-    <button className="btn">
-      <Link to={to}>{children}</Link>
-    </button>
-  );
-}
-
 function AdminPage() {
   return (
     <div className="admin-page">
-      <h1>Admin Dashboard</h1>
+      <div class="heading">
+        <h1>ADMIN DASHBOARD</h1>
+      </div>
       <div className="btn-container">
-        <AdminButton to="/manage-customer">Manage Customer</AdminButton>
-        <AdminButton to="/manage-driver">Manage Drivers</AdminButton>
-        <AdminButton to="/manage-vehicles">Manage Vehicles</AdminButton>
-        <AdminButton to="/feedbacks">Feedback</AdminButton>
+        <div className='btn-row'>
+          <Link className='btn' to="/manage-customer">Manage Customers</Link>
+          <Link className='btn' to="/manage-driver">Manage Drivers</Link>
+        </div>
+        <div className='btn-row'>
+          <Link className='btn' to="/manage-vehicles">Manage Vehicles</Link>
+          <Link className='btn' to="/feedbacks">Feedback</Link>
+        </div>
       </div>
     </div>
   );
