@@ -12,13 +12,7 @@ function ManageCustomer() {
   useEffect(() => {
     axios.get('http://localhost:8080/api/Vehicles')
       .then(response => {
-        const parsedData = response.data.map(vehicle => {
-          const parsedVehicle = {};
-          Object.keys(vehicle).forEach(key => {
-            parsedVehicle[key.replace(/"/g, '')] = vehicle[key];
-          });
-          return parsedVehicle;
-        });
+        const parsedData = response.data.map(vehicle => ({ ...vehicle }));
         setVehicles(parsedData);
       })
       .catch(error => {

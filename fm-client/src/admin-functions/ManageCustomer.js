@@ -12,13 +12,7 @@ function ManageCustomer() {
   useEffect(() => {
     axios.get('http://localhost:8080/api/Users')
       .then(response => {
-        const parsedData = response.data.map(user => {
-          const parsedUser = {};
-          Object.keys(user).forEach(key => {
-            parsedUser[key.replace(/"/g, '')] = user[key];
-          });
-          return parsedUser;
-        });
+        const parsedData = response.data.map(user => ({ ...user }));
         setUsers(parsedData.filter(user => user.type === 'customer'));
       })
       .catch(error => {
