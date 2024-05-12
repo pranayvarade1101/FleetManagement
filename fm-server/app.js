@@ -35,6 +35,7 @@ connection.once('open', () => {
 });
 
 const User = require('./models/User');
+const Vehicle = require('./models/Vehicle');
 
 // Create an API endpoint to retrieve all users
 app.get('/api/Users', async (req, res) => {
@@ -59,10 +60,22 @@ app.post('/api/Users', async (req, res) => {
     }
 });
 
+// Create an API endpoint to retrieve all vehicles
+app.get('/api/Vehicles', async (req, res) => {
+    try {
+        const vehicles = await Vehicle.find();
+        res.json(vehicles);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error retrieving users' });
+    }
+});
+
 
 // *************************************************************************
 // port
-const port = process.envPORT || 8080; // if env file is running then use that port itself, if not running then use 8080;
+const port = process.envPORT || 8080;
+// if env file is running then use that port itself, if not running then use 8080;
 
 
 // *************************************************************************
