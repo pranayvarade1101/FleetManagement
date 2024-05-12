@@ -31,7 +31,7 @@ function ManageCustomer() {
     try {
       const response = await axios.post('http://localhost:8080/api/Users', newUser);
       setUsers([...users, response.data]);
-      setNewUser({ fname: '', lname: '', email: '', pwd: '' });
+      setNewUser({ fname: '', lname: '', email: '', pwd: '', addr: '', cid: '', type: 'customer' });
     } catch (error) {
       console.error(error);
     }
@@ -48,6 +48,7 @@ function ManageCustomer() {
       <table>
         <thead>
           <tr>
+            <th>ID</th>
             <th>Email</th>
             <th>Full Name</th>
             <th>Address</th>
@@ -57,8 +58,9 @@ function ManageCustomer() {
         <tbody>
           {users.map((user) => (
             <tr key={user._id}>
+              <td>{user.cid}</td>
               <td>{user.email}</td>
-              <td>{user.fullName["\"firstName\""]} {user.fullName["\"lastName\""]}</td>
+              <td>{user.fullName.firstName} {user.fullName.lastName}</td>
               <td>{user.address}</td>
               <td>{user.phNo}</td>
             </tr>
@@ -67,12 +69,20 @@ function ManageCustomer() {
       </table>
       <form onSubmit={handleSubmit} noValidate>
         <h3>Add New Customer</h3>
-        <input type='text' placeholder='First Name' name='fname' value={newUser.fname} onChange={handleInputChange} required />
-        <input type='text' placeholder='Last Name' name='lname' value={newUser.lname} onChange={handleInputChange} required />
-        <input type="email" placeholder='Email' name='email' value={newUser.email} onChange={handleInputChange} required />
-        <input type="password" placeholder='Password' name='pwd' value={newUser.pwd} onChange={handleInputChange} required />
+        <div class="form-line">
+          <input type='text' placeholder='First Name' name='fname' value={newUser.fname} onChange={handleInputChange} required />
+          <input type='text' placeholder='Last Name' name='lname' value={newUser.lname} onChange={handleInputChange} required />
+        </div>
+        <div class="form-line">
+          <input type="email" placeholder='Email' name='email' value={newUser.email} onChange={handleInputChange} required />
+          <input type="password" placeholder='Password' name='pwd' value={newUser.pwd} onChange={handleInputChange} required />
+        </div>
+        <div class="form-line">
+          <input type="number" placeholder='Customer ID' name='cid' value={newUser.cid} onChange={handleInputChange} required />
+          <input type="text" placeholder='Address' name='addr' value={newUser.address} onChange={handleInputChange} required />
+        </div>
         
-        <button type="submit" disabled={!formIsValid}><span>Add User</span></button>
+        <button type="submit" disabled={!formIsValid}><span>Add Customer</span></button>
       </form>
     </div>
   );

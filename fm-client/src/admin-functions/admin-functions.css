@@ -11,7 +11,7 @@
 }
 
 .container table {
-    margin: 2%;
+    margin: 1%;
     border: 1px solid;
 }
 
@@ -37,18 +37,18 @@
         font-size: 1.4rem;
         margin-top: 0;
     }
-
-    input {
+    
+    input, select {
         background: transparent;
         width: 13rem;
         padding: 1em;
+        margin-inline: 2em;
         margin-bottom: 2em;
         border: none;
         border-radius: 10px;
         backdrop-filter: blur(5px);
         box-shadow: 4px 4px 20px rgba(0,0,0,0.2);
         font-family: 'Courier New', Courier, monospace;
-        font-weight: 500;
         transition: all 0.2s ease-in-out;
         
         &:hover {
@@ -62,6 +62,11 @@
                 box-shadow: 4px 4px 60px 8px rgba(0,0,0,0.2);
             }
         }
+
+        option {
+            background-color: #e4e4e4;
+        }
+          
     }
 
 
