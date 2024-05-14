@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 
 import Logo from "../../../assets/logo.svg";
+import { Link, Outlet } from 'react-router-dom';
 
 const Navbar = () => {
 
@@ -23,7 +24,7 @@ const Navbar = () => {
       {userAccountType === 'admin' && (
         <ul className="nav-menu d-flex align-items-end justify-content-center ">
           <li> <a href="/home"> Home </a> </li>
-          <li><a href="/admin"> Admin </a> </li>
+          <li> <a href="/admin"> Admin </a> </li>
           <li> <a href="/about-us"> About Us </a> </li>
           <li className='nav-login'> <a href="/login"> Login/SignUp </a> </li>
 
@@ -31,11 +32,12 @@ const Navbar = () => {
       )}
       {userAccountType === 'customer' && (
         <ul className="nav-menu d-flex align-items-end justify-content-center ">
-          <li> <a href="/home"> Home </a> </li>
-          <li><a href="/PageHome"> Explore </a> </li>
-          <li> <a href="/about-us"> About </a> </li>
-          <li> <a href="/home"> Contact </a> </li>
+          <li> <Link href="/home"> Home        </Link> </li>
+          <li> <Link href="/PageHome"> Explore </Link> </li>
+          <li> <Link href="/about-us"> About   </Link> </li>
+          <li> <Link href="/home"> Contact     </Link> </li>
           <li className='nav-login'> <a href="/login"> Login/SignUp </a> </li>
+          <Outlet></Outlet>
         </ul>
       )}
       {userAccountType === 'driver' && (
