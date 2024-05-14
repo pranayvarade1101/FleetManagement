@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
@@ -19,6 +20,7 @@ function App() {
         <Route path='/manage-vehicles' element={<ManageVehicles/>} />
         <Route path='/feedbacks' element={<Feedbacks/>} />
       </Routes>
+
     </Router>
   );
 }
