@@ -37,7 +37,7 @@
         font-size: 1.4rem;
         margin-top: 0;
     }
-    
+
     input, select {
         background: transparent;
         width: 13rem;
@@ -122,10 +122,26 @@
 ::placeholder {
     font-family: 'Courier New', Courier, monospace;
     font-weight: 400;
+    margin: 0;
+    padding: 0;
 }
     
 input:focus,
 select:focus,
 textarea:focus {
     outline: none;
+}
+
+.form-line-2 input {
+    max-width: 3vw;
+    padding: 0;
+    text-align: center;
+}
+
+.pwd-rules {
+    align-self: center;
+    padding-bottom: 3vh;
+    max-width: 60vw;
+    text-align: center;
+    margin: 0;
 }
