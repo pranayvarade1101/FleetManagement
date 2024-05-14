@@ -32,6 +32,11 @@
     font-size: 1.5rem;
 }
 
+.dive-in{
+    color: white;
+    text-decoration: none;
+}
+
 .arrowBtn{
     border-radius: 50%;
 }

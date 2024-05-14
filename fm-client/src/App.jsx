@@ -39,11 +39,21 @@ useEffect(()=>{// creating slideshow
 },[]);
 
   return (
+
     <Router>
       <Routes>
+        <Route index element={<Hero/>} />
         <Route path='/about-us' element={<AboutUs/>} />
-        <Route path='/PageHome' element={<PageHome/>} />
+        {/* <Route path='/PageHome' element={<PageHome/>} /> */}
+
+
+          {/* <Route path="/" element={<Truck/>}></Route>
+          <Route index element={<Home/>}></Route>
+          <Route path="Bus" element={<Bus/>}></Route>
+          <Route path="truck" element={<Truck/>}></Route>
+          <Route path="ferry" element={<Ferry/>}></Route> */}
       </Routes>
+      
 
     <div classNameName="App">
       <Background // passing the props
@@ -59,7 +69,6 @@ useEffect(()=>{// creating slideshow
         playStatus={playStatus}
       />
     </div>
-
     </Router>
   );
 }

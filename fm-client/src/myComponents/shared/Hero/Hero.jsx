@@ -12,8 +12,8 @@ import arrow_gif from '../../../assets/icons/arrow_gif.gif'
 import play_icon from '../../../assets/icons/play_icon.png'
 import pause_icon from '../../../assets/icons/pause_icon.png'
 
-//navigation
-import { useNavigate } from 'react-router-dom';
+// importing Link and outlet for routing
+import { Outlet,Link } from 'react-router-dom'
 
 
 // logic 
@@ -27,7 +27,7 @@ const Hero = ({/*destructuring props*/heroData,setHeroCount,heroCount,setPlaySta
         <p>{heroData.text2}</p>
       </div>
       <button className="explore-btn d-flex justify-content-center align-items-center ps-5"> 
-        <p>Dive IN</p>
+        <Link className='dive-in' to="/PageHome">Dive IN</Link>
         <img className='arrowBtn ms-3' src={arrow_gif} alt="arrorBtn" />
       </button>
       <div className="hero-dot-play">
@@ -47,7 +47,7 @@ const Hero = ({/*destructuring props*/heroData,setHeroCount,heroCount,setPlaySta
 
      
 
-
+    <Outlet></Outlet>
     </div>
   )
 }
