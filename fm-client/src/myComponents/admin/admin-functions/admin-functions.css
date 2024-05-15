@@ -1,8 +1,17 @@
-.container {
+.main-container {
     background: #e4e4e4;
     min-height: 100vh;
     overflow: hidden;
     margin: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.container {
+    margin-inline: 2vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,11 +22,13 @@
 .container table {
     margin: 1%;
     border: 1px solid;
+    white-space: nowrap;
 }
 
 .container th, td {
     padding: 0.5rem;
     border: 1px solid;
+    text-align: center;
 }
 
 .container form {
@@ -36,11 +47,16 @@
         opacity: 0.7;
         font-size: 1.4rem;
         margin-top: 0;
+        margin-bottom: 3vh;
+    }
+
+    .form-line{
+        display: flex;
     }
 
     input, select {
         background: transparent;
-        width: 13rem;
+        width: 10rem;
         padding: 1em;
         margin-inline: 2em;
         margin-bottom: 2em;
@@ -141,7 +157,19 @@ textarea:focus {
 .pwd-rules {
     align-self: center;
     padding-bottom: 3vh;
-    max-width: 60vw;
+    max-width: 30vw;
     text-align: center;
     margin: 0;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox, Default */
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }

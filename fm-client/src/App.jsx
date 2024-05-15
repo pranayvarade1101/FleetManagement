@@ -1,12 +1,11 @@
-
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import AdminPage from './admin';
-import ManageCustomer from './admin-functions/ManageCustomer';
-import ManageDriver from './admin-functions/ManageDriver';
-import ManageVehicles from './admin-functions/ManageVehicles';
-import Feedbacks from './admin-functions/Feedbacks';
+import AdminPage from './myComponents/admin/admin';
+import ManageCustomer from './myComponents/admin/admin-functions/ManageCustomer';
+import ManageDriver from './myComponents/admin/admin-functions/ManageDriver';
+import ManageVehicles from './myComponents/admin/admin-functions/ManageVehicles';
+import Feedbacks from './myComponents/admin/admin-functions/Feedbacks';
 
 import './App.css';
 
