@@ -79,9 +79,8 @@ function ManageCustomer() {
 
   const handleDeleteUser = async (userId) => {
     try {
-      // await axios.delete(`http://localhost:8080/api/Users/${userId}`);
-      // setUsers(prevUsers => prevUsers.filter(user => user._id !== userId));
-      console.log(userId);
+      await axios.delete(`http://localhost:8080/api/Users/${userId}`);
+      setUsers(prevUsers => prevUsers.filter(user => user._id !== userId));
     } catch (error) {
       console.error(error);
     }

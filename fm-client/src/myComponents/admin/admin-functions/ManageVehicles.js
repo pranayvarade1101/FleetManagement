@@ -143,9 +143,8 @@ function ManageVehicles() {
 
   const handleDeleteVehicle = async (vId) => {
     try {
-      // await axios.delete(`http://localhost:8080/api/Users/${vId}`);
-      // setVehicles(prevVehicles => prevVehicles.filter(vehicle => vehicle._id !== vId));
-      console.log(vId);
+      await axios.delete(`http://localhost:8080/api/Vehicles/${vId}`);
+      setVehicles(prevVehicles => prevVehicles.filter(vehicle => vehicle._id !== vId));
     } catch (error) {
       console.error(error);
     }
@@ -159,10 +158,10 @@ function ManageVehicles() {
           <thead>
             <tr>
               <th>Vehicle ID</th>
-              <th>Route ID</th>
-              <th>Status</th>
-              <th>Type</th>
               <th>Driver ID</th>
+              <th>Route ID</th>
+              <th>Type</th>
+              <th>Status</th>
               <th>Load Capacity</th>
               <th>Passenger Capacity</th>
               <th>Rate</th>
@@ -172,10 +171,10 @@ function ManageVehicles() {
             {vehicles.slice((currentPage - 1) * vehiclesPerPage, currentPage * vehiclesPerPage).map((vehicle) => (
               <tr key={vehicle._id}>
                 <td>{vehicle.vid}</td>
-                <td>{vehicle.rid}</td>
-                <td>{vehicle.status}</td>
-                <td>{vehicle.type}</td>
                 <td>{vehicle.did}</td>
+                <td>{vehicle.rid}</td>
+                <td>{vehicle.type}</td>
+                <td>{vehicle.status}</td>
                 <td>{vehicle.load_Capacity}</td>
                 <td>{vehicle.passenger_Capacity}</td>
                 <td>{vehicle.rate} ₹/{vehicle.unit}</td>

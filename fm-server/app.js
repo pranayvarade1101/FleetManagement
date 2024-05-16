@@ -68,6 +68,22 @@ app.post('/api/Users', async (req, res) => {
     }
   });
 
+// Create an API endpoint to delete a user
+app.delete('/api/Users/:userId', async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const user = await User.findByIdAndDelete(userId);
+    if (!user) {
+      res.status(404).send(`User with ID ${userId} not found`);
+    } else {
+      res.status(200).send(`User with ID ${userId} deleted successfully`);
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error deleting user');
+  }
+});
+
 // Create an API endpoint to retrieve all vehicles
 app.get('/api/Vehicles', async (req, res) => {
     try {
@@ -91,6 +107,22 @@ app.post('/api/Vehicles', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Error creating vehicle' });
+  }
+});
+
+// Create an API endpoint to delete a vehicle
+app.delete('/api/Vehicles/:vId', async (req, res) => {
+  const vId = req.params.vId;
+  try {
+    const vehicle = await Vehicle.findByIdAndDelete(vId);
+    if (!vehicle) {
+      res.status(404).send(`Vehicle with ID ${vId} not found`);
+    } else {
+      res.status(200).send(`Vehicle with ID ${vId} deleted successfully`);
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error deleting vehicle');
   }
 });
 
