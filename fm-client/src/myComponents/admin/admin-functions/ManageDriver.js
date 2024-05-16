@@ -9,7 +9,7 @@ function ManageDriver() {
     lname: '',
     email: '',
     pwd: '',
-    address: '',
+    addr: '',
     did: '',
     phNo: '',
     salary: '',
@@ -56,7 +56,7 @@ function ManageDriver() {
           lname: '',
           email: '',
           pwd: '',
-          address: '',
+          addr: '',
           did: '',
           phNo: '',
           salary: '',
@@ -71,11 +71,7 @@ function ManageDriver() {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    if (name === 'did' || name === 'phNo') {
-      setNewUser({ ...newUser, [name]: parseInt(value, 10) });
-    } else {
-      setNewUser({ ...newUser, [name]: value });
-    }
+    setNewUser({ ...newUser, [name]: value });
     setFormIsValid(event.target.form.checkValidity());
   };
 
@@ -87,9 +83,19 @@ function ManageDriver() {
     setCurrentPage(newPage);
   };
 
+  const handleDeleteUser = async (userId) => {
+    try {
+      // await axios.delete(`http://localhost:8080/api/Users/${userId}`);
+      // setUsers(prevUsers => prevUsers.filter(user => user._id !== userId));
+      console.log(userId);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className='main-container'>
-      <div class="container left">
+      <div className="container left">
         <h1>DRIVERS</h1>
         <table>
           <thead>
@@ -113,6 +119,9 @@ function ManageDriver() {
                 <td>{user.phNo}</td>
                 <td>{user.salary}</td>
                 <td>{user.vid}</td>
+                <td className='delete'>
+                  <button className='delete-icon' onClick={() => handleDeleteUser(user._id)}>&#10006;</button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -127,31 +136,33 @@ function ManageDriver() {
           </button>
         </div>
       </div>
-      <div class="container right">
+      <div className="container right">
         <form onSubmit={handleSubmit} noValidate>
           <h3>Add New Driver</h3>
-          <div class="form-line">
+          <div className="form-line">
             <input type='text' placeholder='First Name' name='fname' value={newUser.fname} onChange={handleInputChange} required />
             <input type='text' placeholder='Last Name' name='lname' value={newUser.lname} onChange={handleInputChange} required />
           </div>
-          <div class="form-line">
+          <div className="form-line">
             <input type="tel" placeholder='Phone Number' name='phNo' pattern="[0-9]{10}" value={newUser.phNo} onChange={handleInputChange} required />
             <input type="text" placeholder='Address' name='addr' value={newUser.addr} onChange={handleInputChange} required />
           </div>
-          <div class="form-line">
+          <div className="form-line">
             <input type="email" placeholder='Email' name='email' value={newUser.email} onChange={handleInputChange} required />
             <input type="password" placeholder='Password' name='pwd' pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number, one lowercase and one uppercase letter, and at least 8 characters" value={newUser.pwd} onChange={handleInputChange} required onFocus={() => setShowPasswordRules(true)} onBlur={handlePasswordBlur} />
           </div>
-          <div class="form-line">
+          <div className="form-line">
             {showPasswordRules && (
                 <p className="pwd-rules">Must contain at least one number, one lowercase and one uppercase letter, and be at least 8 characters long.</p>
               )}
           </div>
-          <div class="form-line">
+          <div className="form-line">
             <input type="number" placeholder='Salary' name='salary' value={newUser.salary} onChange={handleInputChange} required />
-            <input type="text" placeholder='Vehicle ID' name='vid' pattern="[A-Z]{2}[ ][0-9]{1,2}[ ][A-Z]{1,2}[ ][0-9]{1,4}" value={newUser.vid} onChange={handleInputChange} required />
+            <input type="text" placeholder='Vehicle ID' name='vid'
+              pattern="([A-Z]{2}[ ][0-9]{1,2}[ ][A-Z]{1,2}[ ][0-9]{1,4}|[F]-[0-9]{3})"
+              value={newUser.vid} onChange={handleInputChange} required />
           </div>
-          <div class="form-line-2">
+          <div className="form-line-2">
             <label name="did">Driver ID:</label>
             <input type="text" placeholder={nextDid} name='did' value={nextDid} onChange={handleInputChange} readOnly required />
           </div>

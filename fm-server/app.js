@@ -82,17 +82,12 @@ app.get('/api/Vehicles', async (req, res) => {
 // Create an API endpoint to create a new vehicle
 app.post('/api/Vehicles', async (req, res) => {
   try {
-    if (req.body.type === 'customer') {
-      req.body.cid = Number(req.body.cid);
-    }
-    else if (req.body.type === 'driver') {
-      req.body.did = Number(req.body.did);
-      req.body.salary = Number(req.body.salary);
-    }
-    req.body.phNo = Number(req.body.phNo);
-    const user = new User(req.body);
-    await user.save();
-    res.json(user);
+    req.body.did = Number(req.body.did);
+    req.body.rid = Number(req.body.rid);
+    req.body.rate = Number(req.body.rate);
+    const vehicle = new Vehicle(req.body);
+    await vehicle.save();
+    res.json(vehicle);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Error creating vehicle' });

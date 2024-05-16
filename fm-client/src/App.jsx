@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import NavBar from './myComponents/shared/navbar/Navbar';
 import PageHome from './myComponents/home/PageHome/PageHome';
 import BusHome from './myComponents/home/BusHome/BusHome';
 import AboutUs from './myComponents/about/AboutUs';
@@ -16,7 +15,6 @@ import './App.css';
 function App() {
   return (
     <Router>
-      <NavBar />
       <Routes>
         <Route path='/' element={<PageHome/>} />
         <Route path='/home' element={<BusHome/>} />

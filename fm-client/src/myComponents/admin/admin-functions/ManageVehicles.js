@@ -9,8 +9,10 @@ function ManageVehicles() {
     status: '',
     type: '',
     did: '',
-    load_Capacity: '',
-    passenger_Capacity: ''
+    lcap: '',
+    pcap: '',
+    rate: '',
+    unit: ''
   });
   const [formIsValid, setFormIsValid] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -56,6 +58,18 @@ function ManageVehicles() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (newVehicle.type === 'Bus') {
+      newVehicle.lcap = 'NA';
+      setNewVehicle({ ...newVehicle, unit: 'Seat' });
+      console.log(newVehicle);
+    } else if (newVehicle.type === 'Truck') {
+      newVehicle.pcap = 'NA';
+      setNewVehicle({ ...newVehicle, unit: 'km' });
+      console.log(newVehicle);
+    } else {
+      newVehicle.unit = 'Nm';
+      console.log(newVehicle);
+    }
     if (formIsValid && !ridError && !didError) {
       try {
         const response = await axios.post('http://localhost:8080/api/Vehicles', {
@@ -65,8 +79,10 @@ function ManageVehicles() {
           status: newVehicle.status,
           type: newVehicle.type,
           did: newVehicle.did,
-          load_Capacity: newVehicle.load_Capacity,
-          passenger_Capacity: newVehicle.passenger_Capacity
+          load_Capacity: newVehicle.lcap,
+          passenger_Capacity: newVehicle.pcap,
+          rate: newVehicle.rate,
+          unit: newVehicle.unit
         });
         setVehicles((prevVehicles) => [...prevVehicles, response.data]);
         setNewVehicle({
@@ -75,8 +91,10 @@ function ManageVehicles() {
           status: '',
           type: '',
           did: '',
-          load_Capacity: '',
-          passenger_Capacity: ''
+          lcap: '',
+          pcap: '',
+          rate: '',
+          unit: ''
         });
       } catch (error) {
         console.error(error);
@@ -86,6 +104,7 @@ function ManageVehicles() {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+    // Checks if the rid exists
     if (name === 'rid') {
       const ridExists = routes.some((route) => route.rid === parseInt(value, 10));
       if (!ridExists && value !== '') {
@@ -94,15 +113,25 @@ function ManageVehicles() {
         setRidError(null);
       }
       setNewVehicle({ ...newVehicle, [name]: parseInt(value, 10) });
-    } else if (name === 'did') {
+    }
+    // Checks if the did exists
+    else if (name === 'did') {
       const didExists = users.some((user) => user.did === parseInt(value, 10));
       if (!didExists && value !== '') {
         setDidError('Driver ID does not exist');
       } else {
-        setDidError(null);
+        // Check if the user with the matching did has a matching rid
+        const user = users.find((user) => user.did === parseInt(value, 10));
+        if (user && user.vid !== newVehicle.vid) {
+          setDidError('Driver does not drive this Vehicle');
+        } else {
+          setDidError(null);
+        }
       }
       setNewVehicle({ ...newVehicle, [name]: parseInt(value, 10) });
-    } else {
+    }
+    // else code
+    else {
       setNewVehicle({ ...newVehicle, [name]: value });
     }
     setFormIsValid(event.target.form.checkValidity());
@@ -112,9 +141,19 @@ function ManageVehicles() {
     setCurrentPage(newPage);
   };
 
+  const handleDeleteVehicle = async (vId) => {
+    try {
+      // await axios.delete(`http://localhost:8080/api/Users/${vId}`);
+      // setVehicles(prevVehicles => prevVehicles.filter(vehicle => vehicle._id !== vId));
+      console.log(vId);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className='main-container'>
-      <div class="container left">
+      <div className="container left">
         <h1>VEHICLES</h1>
         <table>
           <thead>
@@ -126,6 +165,7 @@ function ManageVehicles() {
               <th>Driver ID</th>
               <th>Load Capacity</th>
               <th>Passenger Capacity</th>
+              <th>Rate</th>
             </tr>
           </thead>
           <tbody>
@@ -138,6 +178,10 @@ function ManageVehicles() {
                 <td>{vehicle.did}</td>
                 <td>{vehicle.load_Capacity}</td>
                 <td>{vehicle.passenger_Capacity}</td>
+                <td>{vehicle.rate} ₹/{vehicle.unit}</td>
+                <td className='delete'>
+                  <button className='delete-icon' onClick={() => handleDeleteVehicle(vehicle._id)}>&#10006;</button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -152,12 +196,12 @@ function ManageVehicles() {
           </button>
         </div>
       </div>
-      <div class="container right">
+      <div className="container right">
         <form onSubmit={handleSubmit} noValidate>
           <h3>Add New Vehicle</h3>
-          <div class='form-line'>
+          <div className='form-line'>
             <select name="type" value={newVehicle.type} onChange={handleInputChange} required>
-              <option value="" disabled selected hidden>Vehicle Type</option>
+              <option value="" disabled defaultValue={''} hidden>Vehicle Type</option>
               <option value="Bus">Bus</option>
               <option value="Truck">Truck</option>
               <option value="Ferry">Ferry</option>
@@ -165,54 +209,60 @@ function ManageVehicles() {
           </div>
 
           {/* Inputs for Bus */}
-          {newVehicle.type === 'Bus' && <div class="container vType">
-            <div class="form-line">
+          {newVehicle.type === 'Bus' && <div className="container vType">
+            <div className="form-line">
               <input type='text' placeholder='Vehicle ID' name='vid' pattern="[A-Z]{2}[ ][0-9]{1,2}[ ][A-Z]{1,2}[ ][0-9]{1,4}" value={newVehicle.vid} onChange={handleInputChange} required />
               <input type='number' placeholder='Route ID' name='rid' value={newVehicle.rid} onChange={handleInputChange} required />
             </div>
-            <div class="form-line">
+            <div className="form-line">
               <input type="text" placeholder='Status' name='status' value={newVehicle.status} onChange={handleInputChange} required />
               <input type="number" placeholder='Driver ID' name='did' value={newVehicle.did} onChange={handleInputChange} required />
             </div>
-            <div class="form-line-3">
-              <label>Passenger Capacity</label>
-              <input type="text" placeholder='Capacity' name='passenger-cap' value={newVehicle.passenger_Capacity} onChange={handleInputChange} required />
+            <div className="form-line-3">
+              <input type="text" placeholder='Passenger Capacity' name='pcap' value={newVehicle.pcap} onChange={handleInputChange} required />
+            </div>
+            <div className="form-line-3">
+              <input type="number" placeholder='Ticket Rate' name='rate' value={newVehicle.rate} onChange={handleInputChange} required />
+              <label>₹/Seat</label>
             </div>
           </div> }
 
           {/* Inputs for Truck */}
-          {newVehicle.type === 'Truck' && <div class="container vType">
-            <div class="form-line">
+          {newVehicle.type === 'Truck' && <div className="container vType">
+            <div className="form-line">
               <input type='text' placeholder='Vehicle ID' name='vid' pattern="[A-Z]{2}[ ][0-9]{1,2}[ ][A-Z]{1,2}[ ][0-9]{1,4}" value={newVehicle.vid} onChange={handleInputChange} required />
               <input type='number' placeholder='Route ID' name='rid' value={newVehicle.rid} onChange={handleInputChange} required />
             </div>
-            <div class="form-line">
+            <div className="form-line">
               <input type="text" placeholder='Status' name='status' value={newVehicle.status} onChange={handleInputChange} required />
               <input type="number" placeholder='Driver ID' name='did' value={newVehicle.did} onChange={handleInputChange} required />
             </div>
-            <div class="form-line-3">
-              <label>Load Capacity</label>
-              <input type="text" placeholder='Capacity' name='load-cap' value={newVehicle.load_Capacity} onChange={handleInputChange} required />
+            <div className="form-line-3">
+              <input type="text" placeholder='Load Capacity' name='lcap' value={newVehicle.lcap} onChange={handleInputChange} required />
+            </div>
+            <div className="form-line-3">
+              <input type="number" placeholder='Rate' name='rate' value={newVehicle.rate} onChange={handleInputChange} required />
+              <label>₹/km</label>
             </div>
           </div> }
 
           {/* Inputs for Ferry */}
-          {newVehicle.type === 'Ferry' && <div class="container vType">
-            <div class="form-line">
-              <input type='text' placeholder='Vehicle ID' name='vid' pattern="[F][-][0-9]{3}" value={newVehicle.vid} onChange={handleInputChange} required />
+          {newVehicle.type === 'Ferry' && <div className="container vType">
+            <div className="form-line">
+              <input type='text' placeholder='Vehicle ID' name='vid' pattern="[F]-[0-9]{3}" value={newVehicle.vid} onChange={handleInputChange} required />
               <input type='number' placeholder='Route ID' name='rid' value={newVehicle.rid} onChange={handleInputChange} required />
             </div>
-            <div class="form-line">
+            <div className="form-line">
               <input type="text" placeholder='Status' name='status' value={newVehicle.status} onChange={handleInputChange} required />
               <input type="number" placeholder='Driver ID' name='did' value={newVehicle.did} onChange={handleInputChange} required />
             </div>
-            <div class="form-line-3">
-              <label>Passenger Capacity</label>
-              <input type="text" placeholder='Capacity' name='passenger-cap' value={newVehicle.passenger_Capacity} onChange={handleInputChange} required />
+            <div className="form-line-3">
+              <input type="text" placeholder='Passenger Capacity' name='pcap' value={newVehicle.pcap} onChange={handleInputChange} required />
+              <input type="text" placeholder='Load Capacity' name='lcap' value={newVehicle.lcap} onChange={handleInputChange} required />
             </div>
-            <div class="form-line-3">
-              <label>Load Capacity</label>
-              <input type="text" placeholder='Capacity' name='load-cap' value={newVehicle.load_Capacity} onChange={handleInputChange} required />
+            <div className="form-line-3">
+              <input type="number" placeholder='Rate' name='rate' value={newVehicle.rate} onChange={handleInputChange} required />
+              <label>₹/Nm</label>
             </div>
           </div> }
 

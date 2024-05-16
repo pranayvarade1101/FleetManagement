@@ -77,9 +77,19 @@ function ManageCustomer() {
     setCurrentPage(newPage);
   };
 
+  const handleDeleteUser = async (userId) => {
+    try {
+      // await axios.delete(`http://localhost:8080/api/Users/${userId}`);
+      // setUsers(prevUsers => prevUsers.filter(user => user._id !== userId));
+      console.log(userId);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className='main-container'>
-      <div class="container left">
+      <div className="container left">
       <h1>CUSTOMERS</h1>
         <table>
           <thead>
@@ -99,6 +109,9 @@ function ManageCustomer() {
                 <td>{user.name}</td>
                 <td>{user.address}</td>
                 <td>{user.phNo}</td>
+                <td className='delete'>
+                  <button className='delete-icon' onClick={() => handleDeleteUser(user._id)}>&#10006;</button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -113,27 +126,27 @@ function ManageCustomer() {
           </button>
         </div>
       </div>
-      <div class="container right">
+      <div className="container right">
         <form onSubmit={handleSubmit} noValidate>
           <h3>Add New Customer</h3>
-          <div class="form-line">
+          <div className="form-line">
             <input type='text' placeholder='First Name' name='fname' value={newUser.fname} onChange={handleInputChange} required />
             <input type='text' placeholder='Last Name' name='lname' value={newUser.lname} onChange={handleInputChange} required />
           </div>
-          <div class="form-line">
+          <div className="form-line">
             <input type="tel" placeholder='Phone Number' name='phNo' pattern="[0-9]{10}" value={newUser.phNo} onChange={handleInputChange} required />
             <input type="text" placeholder='Address' name='addr' value={newUser.addr} onChange={handleInputChange} required />
           </div>
-          <div class="form-line">
+          <div className="form-line">
             <input type="email" placeholder='Email' name='email' value={newUser.email} onChange={handleInputChange} required />
             <input type="password" placeholder='Password' name='pwd' pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number, one lowercase and one uppercase letter, and at least 8 characters" value={newUser.pwd} onChange={handleInputChange} required onFocus={() => setShowPasswordRules(true)} onBlur={handlePasswordBlur} />
           </div>
-          <div class="form-line">
+          <div className="form-line">
             {showPasswordRules && (
               <p className="pwd-rules">Must contain at least one number, one lowercase and one uppercase letter, and be at least 8 characters long.</p>
             )}
           </div>
-          <div class="form-line-2">
+          <div className="form-line-2">
             <label name="cid">Customer ID:</label>
             <input type="text" placeholder={nextCid} name='cid' value={nextCid} onChange={handleInputChange} readOnly required />
           </div>

@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     salary: { type: Number },
     type: { type: String, required: true },
     vid: { type: String },
-    name: { type: String, required: true },
+    name: { type: String, required: true }
 });
 
 module.exports = mongoose.model('User', userSchema, 'Users');
