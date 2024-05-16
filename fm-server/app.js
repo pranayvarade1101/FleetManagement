@@ -137,6 +137,35 @@ app.get('/api/Routes', async (req, res) => {
   }
 });
 
+// Create an API endpoint to create a new route
+app.post('/api/Routes', async (req, res) => {
+  try {
+    req.body.rid = Number(req.body.rid);
+    const route = new Route(req.body);
+    await route.save();
+    res.json(route);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Error creating route' });
+  }
+});
+
+// Create an API endpoint to delete a route
+app.delete('/api/Routes/:rId', async (req, res) => {
+  const rId = req.params.rId;
+  try {
+    const route = await Route.findByIdAndDelete(rId);
+    if (!route) {
+      res.status(404).send(`Route with ID ${rId} not found`);
+    } else {
+      res.status(200).send(`Route with ID ${rId} deleted successfully`);
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error deleting route');
+  }
+});
+
 
 // *************************************************************************
 // port

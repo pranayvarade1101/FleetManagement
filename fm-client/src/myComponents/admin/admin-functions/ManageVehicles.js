@@ -16,6 +16,7 @@ function ManageVehicles() {
   });
   const [formIsValid, setFormIsValid] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [showForm, setShowForm] = useState(false);
   const vehiclesPerPage = 5;
   const totalPages = Math.ceil(vehicles.length / vehiclesPerPage);
   const [users, setUsers] = useState([]);
@@ -61,14 +62,11 @@ function ManageVehicles() {
     if (newVehicle.type === 'Bus') {
       newVehicle.lcap = 'NA';
       setNewVehicle({ ...newVehicle, unit: 'Seat' });
-      console.log(newVehicle);
     } else if (newVehicle.type === 'Truck') {
       newVehicle.pcap = 'NA';
       setNewVehicle({ ...newVehicle, unit: 'km' });
-      console.log(newVehicle);
     } else {
       newVehicle.unit = 'Nm';
-      console.log(newVehicle);
     }
     if (formIsValid && !ridError && !didError) {
       try {
@@ -96,6 +94,7 @@ function ManageVehicles() {
           rate: '',
           unit: ''
         });
+        toggleForm();
       } catch (error) {
         console.error(error);
       }
@@ -150,6 +149,10 @@ function ManageVehicles() {
     }
   };
 
+  const toggleForm = () => {
+    setShowForm(!showForm);
+  };
+
   return (
     <div className='main-container'>
       <div className="container left">
@@ -194,8 +197,11 @@ function ManageVehicles() {
             &gt;
           </button>
         </div>
+        <div className='form-toggle'>
+          <button className='form-toggle-btn' onClick={toggleForm}>Add New Vehicle</button>
+        </div>
       </div>
-      <div className="container right">
+      { showForm && <div className="container right">
         <form onSubmit={handleSubmit} noValidate>
           <h3>Add New Vehicle</h3>
           <div className='form-line'>
@@ -269,7 +275,7 @@ function ManageVehicles() {
           {didError && <div style={{ color: 'red' }}>{didError}</div>}
           <button type="submit" disabled={!formIsValid}><span>Add Vehicle</span></button>
         </form>
-      </div>
+      </div> }
     </div>
   );
 }

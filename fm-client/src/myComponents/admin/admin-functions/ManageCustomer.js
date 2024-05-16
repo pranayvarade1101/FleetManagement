@@ -13,6 +13,7 @@ function ManageCustomer() {
     addr: '',
     cid: '',
     type: 'customer' });
+  const [showForm, setShowForm] = useState(false);
   const [formIsValid, setFormIsValid] = useState(false);
   const [showPasswordRules, setShowPasswordRules] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -57,6 +58,7 @@ function ManageCustomer() {
           cid: nextCid,
           type: 'customer'
         });
+        toggleForm();
       } catch (error) {
         console.error(error);
       }
@@ -84,6 +86,10 @@ function ManageCustomer() {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const toggleForm = () => {
+    setShowForm(!showForm);
   };
 
   return (
@@ -124,8 +130,11 @@ function ManageCustomer() {
             &gt;
           </button>
         </div>
+        <div className='form-toggle'>
+          <button className='form-toggle-btn' onClick={toggleForm}>Add New Customer</button>
+        </div>
       </div>
-      <div className="container right">
+      { showForm && <div className="container right">
         <form onSubmit={handleSubmit} noValidate>
           <h3>Add New Customer</h3>
           <div className="form-line">
@@ -142,7 +151,12 @@ function ManageCustomer() {
           </div>
           <div className="form-line">
             {showPasswordRules && (
-              <p className="pwd-rules">Must contain at least one number, one lowercase and one uppercase letter, and be at least 8 characters long.</p>
+              <div className="pwd-rules">
+                <p>Must contain at least one number</p>
+                <p>Must contain at least one lowercase letter.</p>
+                <p>Must contain at least one uppercase letter.</p>
+                <p>Must be at least 8 characters long.</p>
+              </div>
             )}
           </div>
           <div className="form-line-2">
@@ -151,7 +165,7 @@ function ManageCustomer() {
           </div>
           <button type="submit" disabled={!formIsValid}><span>Add Customer</span></button>
         </form>
-      </div>
+      </div> }
     </div>
   );
 }

@@ -48,8 +48,52 @@
     padding-inline: 50%;
     color: white;
     background-color: #f44336;
-    border: #1f1f1f;
+    border: #f44336;
     border-radius: 0.2rem;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2vh;
+
+    button {
+        padding: 2%;
+        margin-inline: 0.3em;
+    }
+
+    span {
+        padding: 0;
+        white-space: nowrap;
+        margin-inline: 0.5em;
+    }
+}
+
+.form-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3%;
+}
+
+.form-toggle button {
+    padding: 7%;
+    white-space: nowrap;
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 0.5em;
+    border: solid 1px;
+    cursor: pointer;
+}
+
+.form-toggle-btn:hover {
+    background-color: #b4b4b4;
+    color: white;
+}
+
+.form-toggle-btn:active {
+    background-color: #808080;
+    color: white;
 }
 
 .container form {

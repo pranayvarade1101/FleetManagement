@@ -8,7 +8,7 @@ import AdminPage from './myComponents/admin/admin';
 import ManageCustomer from './myComponents/admin/admin-functions/ManageCustomer';
 import ManageDriver from './myComponents/admin/admin-functions/ManageDriver';
 import ManageVehicles from './myComponents/admin/admin-functions/ManageVehicles';
-import Feedbacks from './myComponents/admin/admin-functions/Feedbacks';
+import ManageRoutes from './myComponents/admin/admin-functions/ManageRoutes';
 
 import './App.css';
 
@@ -23,7 +23,7 @@ function App() {
         <Route path='/manage-customer' element={<ManageCustomer/>} />
         <Route path='/manage-driver' element={<ManageDriver/>} />
         <Route path='/manage-vehicles' element={<ManageVehicles/>} />
-        <Route path='/feedbacks' element={<Feedbacks/>} />
+        <Route path='/manage-routes' element={<ManageRoutes/>} />
       </Routes>
     </Router>
   );
