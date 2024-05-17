@@ -143,7 +143,17 @@ function ManageVehicles() {
   const handleDeleteVehicle = async (vId) => {
     try {
       await axios.delete(`http://localhost:8080/api/Vehicles/${vId}`);
-      setVehicles(prevVehicles => prevVehicles.filter(vehicle => vehicle._id !== vId));
+      const updatedVehicles = (prevVehicles => prevVehicles.filter(vehicle => vehicle._id !== vId));
+      setVehicles(updatedVehicles);
+
+      // Check if the current page is empty after deletion
+      const currentPageIsEmpty = updatedVehicles
+        .length < (currentPage - 1) * vehiclesPerPage + vehiclesPerPage;
+      
+      if (currentPageIsEmpty && currentPage > 1) {
+        // Go back to the previous page if the current page is empty
+        setCurrentPage(currentPage - 1);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -171,7 +181,9 @@ function ManageVehicles() {
             </tr>
           </thead>
           <tbody>
-            {vehicles.slice((currentPage - 1) * vehiclesPerPage, currentPage * vehiclesPerPage).map((vehicle) => (
+            {vehicles.slice((currentPage - 1) * vehiclesPerPage, currentPage * vehiclesPerPage)
+            .sort((a, b) => a.vid.localeCompare(b.vid))
+            .map((vehicle) => (
               <tr key={vehicle._id}>
                 <td>{vehicle.vid}</td>
                 <td>{vehicle.did}</td>

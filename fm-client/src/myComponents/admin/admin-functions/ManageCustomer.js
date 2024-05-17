@@ -82,7 +82,17 @@ function ManageCustomer() {
   const handleDeleteUser = async (userId) => {
     try {
       await axios.delete(`http://localhost:8080/api/Users/${userId}`);
-      setUsers(prevUsers => prevUsers.filter(user => user._id !== userId));
+      const updatedUsers = (prevUsers => prevUsers.filter(user => user._id !== userId));
+      setUsers(updatedUsers);
+
+      // Check if the current page is empty after deletion
+      const currentPageIsEmpty = updatedUsers
+        .length < (currentPage - 1) * usersPerPage + usersPerPage;
+      
+      if (currentPageIsEmpty && currentPage > 1) {
+        // Go back to the previous page if the current page is empty
+        setCurrentPage(currentPage - 1);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -107,7 +117,9 @@ function ManageCustomer() {
             </tr>
           </thead>
           <tbody>
-            {users.slice((currentPage - 1) * usersPerPage, currentPage * usersPerPage).map((user) => (
+            {users.slice((currentPage - 1) * usersPerPage, currentPage * usersPerPage)
+            .sort((a, b) => a.cid - b.cid)
+            .map((user) => (
               <tr key={user._id}>
                 <td>{user.cid}</td>
                 <td>{user.email}</td>

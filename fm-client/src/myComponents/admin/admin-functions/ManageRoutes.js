@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 function ManageRoutes() {
@@ -15,7 +15,7 @@ function ManageRoutes() {
   const [showForm, setShowForm] = useState(false);
   const routesPerPage = 5;
   const totalPages = Math.ceil(routes.length / routesPerPage);
-  const [nextRid, setNextRid] = useState(null);
+  const nextRidRef = useRef(0);
 
   useEffect(() => {
     fetchRoutes();
@@ -68,16 +68,18 @@ function ManageRoutes() {
     if (name === 'type') {
       if ( value === 'Road' ) {
         const roadRoutes = routes.filter((route) => route.type === 'Road');
-        setNextRid(parseInt(roadRoutes.reduce((max, r) => r.rid > max ? r.rid : max, 0)) + 1);
+        nextRidRef.current = parseInt(roadRoutes.reduce((max, r) => r.rid > max ? r.rid : max, 10000)) + 1;
+        newRoute.rid= nextRidRef.current;
       } else {
         const seaRoutes = routes.filter((route) => route.type === 'Sea');
-        setNextRid(parseInt(seaRoutes.reduce((max, r) => r.rid > max ? r.rid : max, 0)) + 1);
+        nextRidRef.current = parseInt(seaRoutes.reduce((max, r) => r.rid > max ? r.rid : max, 90000)) + 1;
+        newRoute.rid= nextRidRef.current;
       }
     }
-    newRoute.rid= nextRid;
     setNewRoute({ ...newRoute, [name]: value });
     setFormIsValid(event.target.form.checkValidity());
   };
+
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -86,7 +88,17 @@ function ManageRoutes() {
   const handleDeleteRoute = async (rId) => {
     try {
       await axios.delete(`http://localhost:8080/api/Routes/${rId}`);
-      setRoutes(prevRoutes => prevRoutes.filter(route => route._id !== rId));
+      const updatedRoutes = (prevRoutes => prevRoutes.filter(route => route._id !== rId));
+      setRoutes(updatedRoutes);
+
+      // Check if the current page is empty after deletion
+      const currentPageIsEmpty = updatedRoutes
+        .length < (currentPage - 1) * routesPerPage + routesPerPage;
+      
+      if (currentPageIsEmpty && currentPage > 1) {
+        // Go back to the previous page if the current page is empty
+        setCurrentPage(currentPage - 1);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -111,7 +123,9 @@ function ManageRoutes() {
             </tr>
           </thead>
           <tbody>
-            {routes.slice((currentPage - 1) * routesPerPage, currentPage * routesPerPage).map((route) => (
+            {routes.slice((currentPage - 1) * routesPerPage, currentPage * routesPerPage)
+              .sort((a, b) => a.rid - b.rid)
+              .map((route) => (
               <tr key={route._id}>
                 <td>{route.rid}</td>
                 <td>{route.source}</td>
@@ -148,7 +162,7 @@ function ManageRoutes() {
               <option value="Sea">Sea</option>
             </select>
           </div>
-          <div className="container vType">
+          { ( newRoute.type === 'Road' || newRoute.type === 'Sea' ) && <div className="container rType">
             <div className="form-line">
               <input type="text" placeholder='Source' name='source' value={newRoute.source} onChange={handleInputChange} required />
               <input type="text" placeholder='Destination' name='destination' value={newRoute.destination} onChange={handleInputChange} required />
@@ -156,12 +170,12 @@ function ManageRoutes() {
             <div className="form-line-3">
               <input type="text" placeholder='Distance' name='distance' value={newRoute.distance} onChange={handleInputChange} required />
             </div>
-          </div>
-          <div className="form-line-2">
-            <label name="did">Route ID:</label>
-            <input type="text" placeholder={nextRid} name='rid' value={newRoute.rid} onChange={handleInputChange} readOnly required />
-          </div>
-          <button type="submit" disabled={!formIsValid}><span>Add Route</span></button>
+            <div className="form-line-2">
+              <label name="did">Route ID:</label>
+              <input type="text" placeholder={nextRidRef} name='rid' value={newRoute.rid} onChange={handleInputChange} readOnly required />
+            </div>
+            <button type="submit" disabled={!formIsValid}><span>Add Route</span></button>
+          </div> }
         </form>
       </div> }
     </div>
