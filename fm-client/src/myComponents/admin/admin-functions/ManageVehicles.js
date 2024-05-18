@@ -17,6 +17,7 @@ function ManageVehicles() {
   const [formIsValid, setFormIsValid] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [showForm, setShowForm] = useState(false);
+  const [formFade, setFormFade] = useState('');
   const vehiclesPerPage = 5;
   const totalPages = Math.ceil(vehicles.length / vehiclesPerPage);
   const [users, setUsers] = useState([]);
@@ -160,7 +161,15 @@ function ManageVehicles() {
   };
 
   const toggleForm = () => {
-    setShowForm(!showForm);
+    if (showForm) {
+      setFormFade('fadeOut');
+      setTimeout(() => {
+        setShowForm(false);
+      }, 1000); // wait for 500ms (adjust the duration according to your animation)
+    } else {
+      setShowForm(true);
+      setFormFade('fadeIn');
+    }
   };
 
   return (
@@ -213,7 +222,7 @@ function ManageVehicles() {
           <button className='form-toggle-btn' onClick={toggleForm}>Add New Vehicle</button>
         </div>
       </div>
-      { showForm && <div className="container right">
+      { showForm && <div className={`container right ${formFade}`}>
         <form onSubmit={handleSubmit} noValidate>
           <h3>Add New Vehicle</h3>
           <div className='form-line'>

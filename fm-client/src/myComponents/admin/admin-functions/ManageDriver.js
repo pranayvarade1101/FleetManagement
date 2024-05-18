@@ -16,6 +16,7 @@ function ManageDriver() {
     vid: '',
     type: 'driver' });
   const [showForm, setShowForm] = useState(false);
+  const [formFade, setFormFade] = useState('');
   const [formIsValid, setFormIsValid] = useState(false);
   const [showPasswordRules, setShowPasswordRules] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -105,7 +106,15 @@ function ManageDriver() {
   };
 
   const toggleForm = () => {
-    setShowForm(!showForm);
+    if (showForm) {
+      setFormFade('fadeOut');
+      setTimeout(() => {
+        setShowForm(false);
+      }, 1000); // wait for 500ms (adjust the duration according to your animation)
+    } else {
+      setShowForm(true);
+      setFormFade('fadeIn');
+    }
   };
 
   return (
@@ -156,7 +165,7 @@ function ManageDriver() {
           <button className='form-toggle-btn' onClick={toggleForm}>Add New Driver</button>
         </div>
       </div>
-      { showForm && <div className="container right">
+      { showForm && <div className={`container right ${formFade}`}>
         <form onSubmit={handleSubmit} noValidate>
           <h3>Add New Driver</h3>
           <div className="form-line">
