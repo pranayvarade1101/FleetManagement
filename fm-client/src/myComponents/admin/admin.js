@@ -6,7 +6,7 @@ import "./admin.css"
 function AdminPage() {
   return (
     <div className="admin-page">
-      <div class="heading">
+      <div className="heading">
         <h1>ADMIN DASHBOARD</h1>
       </div>
       <div className="btn-container">
@@ -16,7 +16,7 @@ function AdminPage() {
         </div>
         <div className='btn-row'>
           <Link className='btn' to="/manage-vehicles">Manage Vehicles</Link>
-          <Link className='btn' to="/feedbacks">Feedback</Link>
+          <Link className='btn' to="/manage-routes">Manage Routes</Link>
         </div>
       </div>
     </div>

@@ -1,8 +1,17 @@
-.container {
+.main-container {
     background: #e4e4e4;
     min-height: 100vh;
     overflow: hidden;
     margin: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -12,12 +21,105 @@
 
 .container table {
     margin: 1%;
-    border: 1px solid;
+    white-space: nowrap;
+    min-width: 50vw;
 }
 
 .container th, td {
-    padding: 0.5rem;
+    padding: 0.4rem;
     border: 1px solid;
+    text-align: center;
+}
+
+.delete {
+    border: 0;
+
+    :hover {
+        cursor: pointer;
+    }
+
+    :active {
+        background-color: #808080;
+    }
+}
+
+.delete-icon {
+    padding-block: 20%;
+    padding-inline: 50%;
+    color: white;
+    background-color: #f44336;
+    border: #f44336;
+    border-radius: 0.2rem;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2vh;
+
+    button {
+        padding: 2%;
+        margin-inline: 0.3em;
+    }
+
+    span {
+        padding: 0;
+        white-space: nowrap;
+        margin-inline: 0.5em;
+    }
+}
+
+.form-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3%;
+}
+
+.form-toggle button {
+    padding: 7%;
+    white-space: nowrap;
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 0.5em;
+    border: solid 1px;
+    cursor: pointer;
+}
+
+.form-toggle-btn:hover {
+    background-color: #b4b4b4;
+    color: white;
+}
+
+.form-toggle-btn:active {
+    background-color: #808080;
+    color: white;
+}
+
+.fadeIn {
+    animation: fadeIn 2s forwards;
+}
+  
+.fadeOut {
+    animation: fadeOut 1s forwards;
+}
+  
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+  
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 .container form {
@@ -25,9 +127,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    padding: 1.3rem;
-
+    padding: 2rem;
     text-align: center;
     transition: all 0.2s ease-in-out;
 
@@ -36,13 +136,18 @@
         opacity: 0.7;
         font-size: 1.4rem;
         margin-top: 0;
+        margin-bottom: 3vh;
+    }
+
+    .form-line{
+        display: flex;
     }
 
     input, select {
         background: transparent;
-        width: 13rem;
+        width: 10rem;
         padding: 1em;
-        margin-inline: 2em;
+        margin-inline: 1.5em;
         margin-bottom: 2em;
         border: none;
         border-radius: 10px;
@@ -57,7 +162,6 @@
         
         &[type="email"],
         &[type="password"] {
-
             &:focus {
                 box-shadow: 4px 4px 60px 8px rgba(0,0,0,0.2);
             }
@@ -141,7 +245,19 @@ textarea:focus {
 .pwd-rules {
     align-self: center;
     padding-bottom: 3vh;
-    max-width: 60vw;
+    max-width: 25vw;
     text-align: center;
     margin: 0;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox, Default */
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
